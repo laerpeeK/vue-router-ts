@@ -1,25 +1,4 @@
 # vue-router-ts
 vue-router-ts@3.6.5
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+这是一个正在进行的个人项目，主要是采用TypeScript实现一遍vue-router@3.6.5的练习。
+在该仓库完成后会更新具体文档。

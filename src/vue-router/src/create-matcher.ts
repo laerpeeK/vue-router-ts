@@ -15,7 +15,11 @@ import { createRoute } from './util/route'
 import { warn } from './util/warn'
 
 export type Matcher = {
-  match: Function
+  match: (
+    raw: RawLocation,
+    currentRoute?: Route,
+    redirectedFrom?: Location
+  ) => any
   addRoutes: Function
   addRoute: Function
   getRoutes: Function
