@@ -14,6 +14,7 @@ export const install: Install = function (Vue: VueConstructor) {
   _Vue = Vue
 
   const isDef = (v: any) => v !== undefined
+  // 针对router-view组件
   const registerInstance = (vm: Vue, callVal?: any) => {
     let i: any = vm.$options._parentVnode
     if (

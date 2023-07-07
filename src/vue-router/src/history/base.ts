@@ -78,6 +78,7 @@ export class History {
     try {
       route = this.router.match(location, this.current)
     } catch (e) {
+      // 匹配过程中出现错误异常，则进行错误回调
       this.errorCbs.forEach((cb) => {
         cb(e)
       })
@@ -169,7 +170,7 @@ export class History {
       this.current.matched,
       route.matched
     )
-    
+
     // beforeRouteLeave, beforeHooks(全局前置守卫), beforeRouteUpdate, beforeEnter(路由独享守卫), resolveAsyncComponents
     const queue = ([] as Array<NavigationGuard>).concat(
       // in-component-leave guards
@@ -186,22 +187,26 @@ export class History {
 
     // 守卫执行的进一层封装，处理next及特殊情况
     const iterator = (hook: NavigationGuard, next: Function) => {
-      if (this.pending !== route) { // 守卫执行中途，改变了导航目标，执行中止取消
+      if (this.pending !== route) {
+        // 守卫执行中途，改变了导航目标，执行中止取消
         return abort(createNavigationCancelledError(current, route))
       }
       try {
         hook(route, current, (to: any) => {
-          if (to === false) {  // 中断当前导航
+          if (to === false) {
+            // 中断当前导航
             // next(false) -> abort navigation, ensure current URL
             // @ts-expect-error routerhistory
             this.ensureURL(true)
             abort(createNavigationAbortedError(current, route))
-          } else if (isError(to)) { // 导航会被终止，且错误会被传递给router.onError()注册过的回调
+          } else if (isError(to)) {
+            // 导航会被终止，且错误会被传递给router.onError()注册过的回调
             // @ts-expect-error routerhistory
             this.ensureURL(true)
             abort(to)
-          } else if ( // 当传递的参数为一个新地址时，当前导航会被中断，进行一个新的导航。具体允许的选项查看官方文档
-          // https://v3.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB
+          } else if (
+            // 当传递的参数为一个新地址时，当前导航会被中断，进行一个新的导航。具体允许的选项查看官方文档
+            // https://v3.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB
             typeof to === 'string' ||
             (typeof to === 'object' &&
               (typeof to.path === 'string' || typeof to.name === 'string'))
@@ -215,7 +220,8 @@ export class History {
               // @ts-expect-error routerhistory
               this.push(to)
             }
-          } else {  // 进行管道中的下一个钩子
+          } else {
+            // 进行管道中的下一个钩子
             // 此处其实传不传to都无所谓，next为runQueue中实现的进行下个钩子
             // confirm transition and pass on the value
             next(to)

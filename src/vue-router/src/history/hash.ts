@@ -52,6 +52,9 @@ export class HashHistory extends History {
     })
   }
 
+  /**
+   * 获取#后的path: 例如：#/a/b -> /a/b
+   */
   getCurrentLocation(): string {
     return getHash()
   }
@@ -121,8 +124,6 @@ export function getHash(): string {
 
 /**
  * 拼接完整路径，去除之前路径#后的，拼接新传入的path
- * @param path
- * @returns
  */
 function getUrl(path: string): string {
   const href = window.location.href
@@ -140,7 +141,7 @@ function pushHash(path: string) {
 }
 
 /**
- * 将初始路径 / 转化成 /#/
+ * 将原路径替换成新路径
  */
 function replaceHash(path: string) {
   if (supportsPushState) {

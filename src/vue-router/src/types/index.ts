@@ -18,7 +18,7 @@ export type NavigationGuard = (
 ) => any
 
 /**
- * 使用时对单个route选项的定义
+ * 使用时对单个路由配置对象，具体选项的类型定义
  */
 export type RouteConfig = {
   path: string

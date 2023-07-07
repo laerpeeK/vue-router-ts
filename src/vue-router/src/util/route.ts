@@ -74,6 +74,7 @@ function getFullPath(
 
 /***
  * 将父子关系的RouteRecord放置到一个数组中，父在子前
+ * 在router-view组件中，depth组件映射层级，数组key值是升序的 对应depth++
  */
 function formatMatch(record?: RouteRecord): Array<RouteRecord> {
   const res: Array<RouteRecord> = []

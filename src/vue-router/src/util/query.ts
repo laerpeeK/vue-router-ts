@@ -29,7 +29,7 @@ const castQueryParamValue = (value: any) =>
 /**
  *  将对象形式的query转化成字符串形式
  */
-export function stringifyQuery(obj: Record<string, string>): string {
+export function stringifyQuery(obj: Record<string, any>): string {
   const res = obj
     ? Object.keys(obj)
         .map((key) => {
@@ -68,7 +68,7 @@ export function stringifyQuery(obj: Record<string, string>): string {
 
 export function resolveQuery(
   query?: string,
-  extraQuery: Record<string, string> = {},
+  extraQuery: Record<string, any> = {},
   _parseQuery?: Function
 ): Record<string, any> {
   const parse: Function = _parseQuery || parseQuery

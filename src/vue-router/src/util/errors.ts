@@ -1,5 +1,6 @@
 import type { Route, RouterError } from '../types'
 
+// 所有的导航故障都会有 to 和 from 属性，分别用来表达这次失败的导航的目标位置和当前位置。
 export enum NavigationFailureType {
   redirected = 2, // 在导航守卫中调用了 next(newLocation) 重定向到了其他地方
   aborted = 4, // 在导航守卫中调用了 next(false) 中断了本次导航

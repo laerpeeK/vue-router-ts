@@ -47,7 +47,7 @@ export function resolvePath(relative: string, base: string, append?: boolean) {
     return base + relative
   }
 
-  const stack = base.split('/')
+  const stack = base.split('/') 
 
   // remove trailing segment if:
   // - not appending

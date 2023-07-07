@@ -18,7 +18,6 @@ export function createRouteMap(
   oldNameMap?: Record<string, RouteRecord>,
   parentRoute?: RouteRecord
 ) {
-  debugger
   // the path list is used to control path matching priority
   const pathList: Array<string> = oldPathList || []
   const pathMap: Record<string, RouteRecord> = oldPathMap || Object.create(null)
@@ -180,14 +179,14 @@ function normalizePath(
   parent?: RouteRecord,
   strict?: boolean
 ): string {
-  if (!strict) path = path.replace(/\/$/, '')
+  if (!strict) path = path.replace(/\/$/, '') // 非严格模式下 删除path最后的 /
   if (path[0] === '/') return path
   if (parent == null) return path
   return cleanPath(`${parent.path}/${path}`)
 }
 
 /**
- * 返回跟其path相对应的regexp
+ * 返回跟其path相对应的regexp，这个path已经跟其父级path进行过整合
  */
 function compileRouteRegex(
   path: string,

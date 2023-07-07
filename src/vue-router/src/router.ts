@@ -37,7 +37,7 @@ export default class VueRouter {
   matcher: Matcher // 用于匹配路由的方法集合
 
   constructor(options: RouterOptions = {}) {
-    debugger
+    console.log(inBrowser)
     if (process.env.NODE_ENV !== 'production') {
       warn(
         this instanceof VueRouter,
@@ -151,29 +151,52 @@ export default class VueRouter {
     return this.matcher.match(raw, current, redirectedFrom)
   }
 
+  /**
+   * 注册一个全局前置守卫
+   */
   beforeEach(fn: NavigationGuard) {
-    // 添加单个全局前置守卫
     return registerHook(this.beforeHooks, fn)
   }
 
+  /**
+   * 注册一个全局解析守卫
+   * 在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，解析守卫就被调用
+   */
   beforeResolve(fn: NavigationGuard) {
     // 添加单个全局解析守卫
     return registerHook(this.resolveHooks, fn)
   }
 
+  /**
+   * 注册一个全局后置守卫
+   * 这些钩子不会接受 next 函数也不会改变导航本身
+   */
   afterEach(fn: (to: Route, from: Route) => void) {
     // 添加单个全局后置钩子
     return registerHook(this.afterHooks, fn)
   }
 
+  /**
+   * 该方法把一个回调排队，在路由完成初始导航时调用，这意味着它可以解析所有的异步进入钩子和路由初始化相关联的异步组件。
+   * 第二个参数 errorCallback 只在 2.4+ 支持。它会在初始化路由解析运行出错 (比如解析一个异步组件失败) 时被调用。
+   */
   onReady(cb: Function, errorCb?: Function) {
     this.history.onReady(cb, errorCb)
   }
 
+  /**
+   * 注册一个回调，该回调会在路由导航过程中出错时被调用。注意被调用的错误必须是下列情形中的一种：
+   * 错误在一个路由守卫函数中被同步抛出；
+   * 错误在一个路由守卫函数中通过调用 next(err) 的方式异步捕获并处理；
+   * 渲染一个路由的过程中，需要尝试解析一个异步组件时发生错误。
+   */
   onError(errorCb: Function) {
     this.history.onError(errorCb)
   }
 
+  /**
+   * 导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录
+   */
   push(location: RawLocation, onComplete?: Function, onAbort?: Function) {
     if (!onComplete && !onAbort && typeof Promise !== 'undefined') {
       return new Promise((resolve, reject) => {

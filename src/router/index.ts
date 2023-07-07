@@ -16,14 +16,12 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    name: 'HomeView',
     path: '/home',
-    components: Home
+    component: Home
   },
   {
-    name: 'AboutView',
     path: '/about',
-    components: About
+    component: About
   }
 ]
 
