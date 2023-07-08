@@ -25,7 +25,7 @@ export type RouteConfig = {
   name?: string
   component?: any
   components?: Record<string, any>
-  PathToRegexpOptions?: PathToRegexpOptions
+  pathToRegexpOptions?: PathToRegexpOptions
   caseSensitive?: boolean
   alias?: string | Array<string>
   meta?: any

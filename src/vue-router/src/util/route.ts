@@ -99,6 +99,14 @@ export function isSameRoute(a: Route, b?: Route, onlyPath?: boolean) {
         b.path.replace(trailingSlashRE, '') &&
       (onlyPath || (a.hash === b.hash && isObjectEqual(a.query, b.query)))
     )
+  } else if (a.name && b.name) {
+    return (
+      a.name === b.name &&
+      (onlyPath ||
+        (a.hash === b.hash &&
+          isObjectEqual(a.query, b.query) &&
+          isObjectEqual(a.params, b.params)))
+    )
   } else {
     return false
   }
