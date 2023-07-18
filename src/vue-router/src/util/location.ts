@@ -8,6 +8,7 @@ import { warn } from './warn'
 
 /**
  * 返回规范化过的location对象，具体差别在于_normalized: true
+ * 以及返回Location对象包含了query, hash, path
  */
 export function normalizeLocation(
   raw: RawLocation,

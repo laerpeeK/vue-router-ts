@@ -14,12 +14,12 @@ import { decode } from './util/query'
 import { createRoute } from './util/route'
 import { warn } from './util/warn'
 
-export type Matcher = {
+export interface Matcher {
   match: (
     raw: RawLocation,
     currentRoute?: Route,
     redirectedFrom?: Location
-  ) => any
+  ) => Route
   addRoutes: Function
   addRoute: Function
   getRoutes: Function
@@ -27,15 +27,14 @@ export type Matcher = {
 
 export function createMatcher(
   routes: Array<RouteConfig>,
-  router: Router
+  router?: Router
 ): Matcher {
   const { pathList, pathMap, nameMap } = createRouteMap(routes)
   function match(
     raw: RawLocation,
     currentRoute?: Route,
     redirectedFrom?: Location
-  ) {
-    debugger
+  ): Route {
     const location = normalizeLocation(raw, currentRoute, false, router)
     const { name } = location
     if (name) {

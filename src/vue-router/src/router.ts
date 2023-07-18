@@ -37,7 +37,6 @@ export default class VueRouter {
   matcher: Matcher // 用于匹配路由的方法集合
 
   constructor(options: RouterOptions = {}) {
-    console.log(inBrowser)
     if (process.env.NODE_ENV !== 'production') {
       warn(
         this instanceof VueRouter,

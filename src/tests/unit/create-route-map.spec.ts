@@ -218,7 +218,7 @@ describe('Creating Route map', () => {
       {
         path: '/foobar',
         name: 'foobar',
-        component: FooBar,
+        component: Foobar,
         caseSensitive: true
       }
     ]

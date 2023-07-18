@@ -12,12 +12,22 @@ const About = {
   template: '<div>About</div>'
 }
 
+const News = {
+  template: '<div>News</div>'
+}
+
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/home',
-    component: Home
+    path: '/home/',
+    component: Home,
+    children: [
+      {
+        path: 'news',
+        component: News
+      }
+    ]
   },
   {
     path: '/about',

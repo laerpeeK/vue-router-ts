@@ -89,7 +89,7 @@ describe('Location utils', () => {
       expect(loc.params).toEqual({ lang: 'fr', id: 'foo' })
     })
 
-    it('relative params (non-named', () => {
+    it('relative params (non-named)', () => {
       const loc = normalizeLocation({ params: { lang: 'fr' } }, {
         path: '/en/foo',
         params: { lang: 'en', id: 'foo' },
