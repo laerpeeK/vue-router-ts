@@ -20,17 +20,20 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/home/',
+    path: '/home',
+    name: 'Home',
     component: Home,
     children: [
       {
         path: 'news',
+        name: 'News',
         component: News
       }
     ]
   },
   {
     path: '/about',
+    name: 'About',
     component: About
   }
 ]

@@ -9,6 +9,9 @@ import { warn } from './warn'
 /**
  * 返回规范化过的location对象，具体差别在于_normalized: true
  * 以及返回Location对象包含了query, hash, path
+ * 1. 处理路径字符串和对象形式的Location
+ * 2. 处理相对路径和绝对路径
+ * 3. 处理命名路由和路径路由的差异
  */
 export function normalizeLocation(
   raw: RawLocation,
@@ -19,8 +22,10 @@ export function normalizeLocation(
   let next: Location = typeof raw === 'string' ? { path: raw } : raw
   // named target
   if (next._normalized) {
+    // 1) 规范化的直接返回
     return next
   } else if (next.name) {
+    // 2) 有name属性，深拷贝复制raw对象，如果params是对象形式，也进行深拷贝
     next = extend({}, raw)
     const params = next.params
     if (params && typeof params === 'object') {

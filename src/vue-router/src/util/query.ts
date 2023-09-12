@@ -27,7 +27,9 @@ const castQueryParamValue = (value: any) =>
   value == null || typeof value === 'object' ? value : String(value)
 
 /**
- *  将对象形式的query转化成字符串形式
+ *  将对象形式的query转化成符合URL规范的查询字符串
+ *  undefined -> ''
+ * null -> encode(key)
  */
 export function stringifyQuery(obj: Record<string, any>): string {
   const res = obj

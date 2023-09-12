@@ -55,6 +55,7 @@ export default class VueRouter {
     this.fallback =
       mode === 'history' && !supportsPushState && options.fallback !== false
     if (this.fallback) {
+      // history模式下，不支持pushState方法且fallback为true则回退到hash模式
       mode = 'hash'
     }
     if (!inBrowser) {
@@ -206,6 +207,10 @@ export default class VueRouter {
       // @ts-expect-error hash or html5
       this.history.push(location, onComplete, onAbort)
     }
+  }
+
+  get currentRoute(): Route {
+    return this.history && this.history.current
   }
 }
 

@@ -106,7 +106,7 @@ export type RawLocation = string | Location
  * path-to-regExp 调用时传入选项类型
  */
 export type PathToRegexpOptions = {
-  sensitive?: boolean // 为true时区分大小写，默认为false
-  strict?: boolean // 为false时尾部斜线是可选的， 默认为false
-  end?: boolean // 为false时路径将在开头匹配，默认为true
+  sensitive?: boolean // 指定是否对路径大小写敏感。设置为 true 表示区分大小写，false 表示不区分大小写。
+  strict?: boolean // 指定是否对尾部斜杠进行严格匹配。设置为 true 表示需要匹配末尾斜杠，false 表示末尾斜杠是可选的。
+  end?: boolean // 指定生成的正则表达式是否包含结束锚点 $。设置为 false 表示生成的正则表达式匹配路径的开始部分。
 }

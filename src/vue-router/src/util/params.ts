@@ -5,6 +5,9 @@ const regexpCompileCache: {
   [key: string]: Function
 } = Object.create(null)
 
+/**
+ * fillParams 函数用于将路径字符串中的参数占位符替换为实际的参数值，并返回填充后的路径字符串。
+ */
 export function fillParams(
   path: string,
   params?: Record<string, any>,

@@ -31,12 +31,12 @@ export const install: Install = function (Vue: VueConstructor) {
       // 1. 实现$router, $route的获取
       // 2. 调用$router.init方法
       if (isDef(this.$options.router)) {
-        this._routerRoot = this
-        this._router = this.$options.router
+        this._routerRoot = this // 根组件
+        this._router = this.$options.router // Vue Router实例
         this._router?.init(this)
 
         // @ts-expect-error type ignore
-        Vue.util.defineReactive(this, '_route', this._router.history.current)
+        Vue.util.defineReactive(this, '_route', this._router.history.current) // 当前活动的路由
       } else {
         this._routerRoot = (this.$parent && this.$parent._routerRoot) || this
       }

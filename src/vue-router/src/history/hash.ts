@@ -123,7 +123,7 @@ export function getHash(): string {
 }
 
 /**
- * 拼接完整路径，去除之前路径#后的，拼接新传入的path
+ * 通过调用该函数并传入指定的路径 path，可以获取包含指定路径的完整 URL，其中路径会作为哈希部分添加到 URL 的末尾
  */
 function getUrl(path: string): string {
   const href = window.location.href

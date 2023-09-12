@@ -1,7 +1,7 @@
 /**
  * 替换path, 具体替换正则表达式查看下述链接
  * https://jex.im/regulex/#!flags=&re=%5C%2F(%3F%3A%5Cs*%5C%2F)%2B
- * 清除/whiteSpace/ 这类情况
+ * 替换路径中多个连续斜杠（/）为单个斜杠。
  */
 export function cleanPath(path: string) {
   return path.replace(/\/(?:\s*\/)+/g, '/')

@@ -23,6 +23,7 @@ export function createRoute(
     // do nothing
   }
 
+  // Params 是通过路由的动态路径片段传递的参数，而 Query 是通过 URL 查询字符串传递的参数
   const route: Route = {
     name: location.name || (record && record.name),
     meta: (record && record.meta) || {},

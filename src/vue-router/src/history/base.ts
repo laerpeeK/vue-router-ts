@@ -22,7 +22,7 @@ import {
 import { runQueue } from '../util/async'
 
 export class History {
-  router: Router // Router类
+  router: Router // Vue Router实例
   base: string //  基础路径，默认为 ""
   current: Route // 当前route
   cb!: (r: Route) => void
@@ -285,6 +285,7 @@ function normalizeBase(base?: string) {
       const baseEl = document.querySelector('base')
       base = (baseEl && baseEl.getAttribute('href')) || '/'
       // strip full URL origin
+      // http://example.com/app -> /app
       // eslint-disable-next-line
       base = base.replace(/^https?:\/\/[^\/]+/, '')
     } else {

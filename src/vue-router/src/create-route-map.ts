@@ -28,6 +28,7 @@ export function createRouteMap(
   })
 
   // ensure wildcard routes are always at the end
+  // 确保通配符路由 * 总在列表的末尾
   for (let i = 0, l = pathList.length; i < l; i++) {
     if (pathList[i] === '*') {
       pathList.push(pathList.splice(i, 1)[0])
@@ -36,6 +37,7 @@ export function createRouteMap(
     }
   }
 
+  // 开发环境下，检查路由配置项是否包含 /, 不包含则发出警告（只对非嵌套路由有效）
   if (process.env.NODE_ENV === 'development') {
     // warn if routes do not include leading slashes
     const found = pathList
@@ -73,14 +75,19 @@ function addRouteRecord(
 ) {
   const { path, name } = route
   if (process.env.NODE_ENV !== 'production') {
+    // 1) path不能为空
     assert(path != null, `"path" is required in a route configuration.`)
+
+    // 2) component不能为字符串类型
     assert(
       typeof route.component !== 'string',
       `route config "component" for path: ${String(path || name)} cannot be a` +
         `string id. Use an actual component instead.`
     )
 
+    // 这个警告的目的是确保路径中不包含无法处理的非编码字符，以避免潜在的问题和错误。
     warn(
+      // 判断路径 path 中是否存在非 ASCII 字符。
       // eslint-disable-next-line no-control-regex
       !/[^\u0000-\u007F]+/.test(path),
       `Route with path "${path}" contains unencoded characters, make sure ` +
@@ -212,7 +219,7 @@ function normalizePath(
 }
 
 /**
- * 返回跟其path相对应的regexp，这个path已经跟其父级path进行过整合
+ * 将路径字符串编译为一个可用于匹配和解析路径的正则表达式对象
  */
 function compileRouteRegex(
   path: string,

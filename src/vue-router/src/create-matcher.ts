@@ -30,6 +30,7 @@ export function createMatcher(
   router?: Router
 ): Matcher {
   const { pathList, pathMap, nameMap } = createRouteMap(routes)
+
   function match(
     raw: RawLocation,
     currentRoute?: Route,
