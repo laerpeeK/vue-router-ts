@@ -12,7 +12,7 @@ describe('Query utils', () => {
       )
     })
 
-    it('should trun empty params into null', () => {
+    it('should turn empty params into null', () => {
       expect(resolveQuery('?foo&bar=&arr=1&arr&arr=2')).toEqual({
         foo: null,
         bar: '',
@@ -37,12 +37,13 @@ describe('Query utils', () => {
 
     it('should cast query values into string', () => {
       const query = resolveQuery('foo=bar&foo=k', { baz: 1 })
-      // expect(query.foo).toEqual(['bar', 'k'])
+      expect(query.foo).toEqual(['bar', 'k'])
       expect(query.baz).toBe('1')
     })
 
     it('should cast query array values into string', () => {
       const query = resolveQuery('foo=bar&foo=k', { baz: [1, '2'] })
+      expect(query.foo).toEqual(['bar', 'k'])
       expect(query.baz).toEqual(['1', '2'])
     })
   })
@@ -65,15 +66,19 @@ describe('Query utils', () => {
     })
 
     it('should escape reserved chars', () => {
-      expect(stringifyQuery({
-        a: '*()!'
-      })).toBe('?a=%2a%28%29%21')
+      expect(
+        stringifyQuery({
+          a: '*()!'
+        })
+      ).toBe('?a=%2a%28%29%21')
     })
 
     it('should preserve commas', () => {
-      expect(stringifyQuery({
-        list: '1,2,3'
-      })).toBe('?list=1,2,3')
+      expect(
+        stringifyQuery({
+          list: '1,2,3'
+        })
+      ).toBe('?list=1,2,3')
     })
   })
 })

@@ -77,9 +77,9 @@ describe('Route utils', () => {
       expect(() => isSameRoute(a, b)).not.toThrow()
       //@ts-expect-error typeError a b
       expect(() => isSameRoute(a, c)).not.toThrow()
-       //@ts-expect-error typeError a b
+      //@ts-expect-error typeError a b
       expect(isSameRoute(a, b)).toBe(true)
-       //@ts-expect-error typeError a c
+      //@ts-expect-error typeError a c
       expect(isSameRoute(a, c)).toBe(false)
     })
 

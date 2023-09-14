@@ -73,6 +73,7 @@ export class History {
     onComplete?: Function,
     onAbort?: Function
   ) {
+    debugger
     let route: Route
     // catch redirect option https://github.com/vuejs/vue-router/issues/3201
     try {
@@ -133,7 +134,6 @@ export class History {
     const current = this.current
     this.pending = route
     const abort = (err: any) => {
-      debugger
       // changed after adding errors with
       // https://github.com/vuejs/vue-router/pull/3047 before that change,
       // redirect and aborted navigation would produce an err == null
@@ -166,12 +166,20 @@ export class History {
       return abort(createNavigationDuplicatedError(current, route))
     }
 
+    // 三个都是Array<RouteRecord>类型
     const { updated, deactivated, activated } = resolveQueue(
       this.current.matched,
       route.matched
     )
 
     // beforeRouteLeave, beforeHooks(全局前置守卫), beforeRouteUpdate, beforeEnter(路由独享守卫), resolveAsyncComponents
+    /**
+     * extractLeaveGuards: 组件内离开守卫，在组件离开时执行，用于处理一些清理操作或取消异步任务等。
+     * this.router.beforeHooks: 全局前置守卫，在每次路由跳转之前执行，通常用于进行权限验证、登录状态检查等全局性的操作。
+     * extractUpdateHooks: 组件内更新守卫，在组件更新时执行，用于处理一些与组件状态相关的逻辑。
+     * activated.beforeEnter: 路由独享守卫，仅对特定路由生效，用于实现特定路由的权限控制，条件判断等操作。
+     * resolveAsyncComponents: 异步组件解析守卫，用于确保异步加载的组件已经加载完毕并准备就绪，以防止页面渲染出错。
+     */
     const queue = ([] as Array<NavigationGuard>).concat(
       // in-component-leave guards
       extractLeaveGuards(deactivated),

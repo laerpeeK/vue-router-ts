@@ -22,7 +22,7 @@ export interface Matcher {
   ) => Route
   addRoutes: Function
   addRoute: Function
-  getRoutes: Function
+  getRoutes: () => RouteRecord[]
 }
 
 export function createMatcher(
@@ -88,8 +88,8 @@ export function createMatcher(
     debugger
   }
 
-  function getRoutes() {
-    debugger
+  function getRoutes(): RouteRecord[] {
+    return pathList.map((path: string) => pathMap[path])
   }
 
   function redirect(record: RouteRecord, location: Location) {
@@ -147,6 +147,9 @@ export function createMatcher(
   }
 }
 
+/**
+ * 匹配路由
+ */
 function matchRoute(
   regex: RouteRegExp,
   path: string,
@@ -163,6 +166,7 @@ function matchRoute(
     const key = regex.keys[i - 1]
     if (key) {
       // Fix #1994: using * with props: true generates a param named 0
+      // 如果key存在，则将匹配到的值m[i]存储到params对象中，键名为key.name（如果key.name不存在，则默认为'pathMatch'）。存储值时，如果m[i]为字符串类型，则进行解码（使用decode函数解码），否则直接赋值。
       params[key.name || 'pathMatch'] =
         typeof m[i] === 'string' ? decode(m[i]) : m[i]
     }

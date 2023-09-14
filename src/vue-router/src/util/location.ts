@@ -12,6 +12,7 @@ import { warn } from './warn'
  * 1. 处理路径字符串和对象形式的Location
  * 2. 处理相对路径和绝对路径
  * 3. 处理命名路由和路径路由的差异
+ * 详见测试test/util/location.spec.ts
  */
 export function normalizeLocation(
   raw: RawLocation,

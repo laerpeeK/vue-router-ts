@@ -23,6 +23,9 @@ export function decode(str: string): string {
   return str
 }
 
+/**
+ * 将查询参数的值进行转换
+ */
 const castQueryParamValue = (value: any) =>
   value == null || typeof value === 'object' ? value : String(value)
 
@@ -68,6 +71,11 @@ export function stringifyQuery(obj: Record<string, any>): string {
   return res ? `?${res}` : ''
 }
 
+/**
+ * 解析query参数
+ * 优先级：extraQuery > query
+ * null, undefined, typeof object保持原值，其他转化为字符串形式
+ */
 export function resolveQuery(
   query?: string,
   extraQuery: Record<string, any> = {},
@@ -91,7 +99,7 @@ export function resolveQuery(
 }
 
 /**
- * 将字符串化的query转化成对象形式
+ * 将字符串化的query转化成对象形式,包括对键值进行decode解码操作
  */
 function parseQuery(query: string): Record<string, any> {
   const res: Record<string, any> = {}
