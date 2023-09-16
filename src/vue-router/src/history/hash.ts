@@ -97,6 +97,9 @@ export class HashHistory extends History {
   }
 }
 
+/**
+ * 确保path以/开头
+ */
 function ensureSlash(): boolean {
   const path = getHash()
   if (path.charAt(0) === '/') {

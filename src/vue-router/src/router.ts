@@ -33,7 +33,7 @@ export default class VueRouter {
   history!: HTML5History | HashHistory | AbstractHistory // 当前的history类
   beforeHooks: Array<NavigationGuard> //  全局前置守卫集合
   resolveHooks: Array<NavigationGuard> // 全局解析守卫集合
-  afterHooks: Array<(to: Route, from: Route) => void> // 全局后置钩子集合
+  afterHooks: Array<(to: Route, from: Route) => void> // 全局后置守卫集合
   matcher: Matcher // 用于匹配路由的方法集合
 
   constructor(options: RouterOptions = {}) {

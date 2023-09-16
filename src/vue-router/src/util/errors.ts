@@ -89,7 +89,7 @@ export function isError(err: any) {
 /**
  * 判断是否为导航错误
  */
-export function isNavigationFailure(err: any, errorType?: number) {
+export function isNavigationFailure(err: any, errorType?: number): boolean {
   return (
     isError(err) &&
     err._isRouter &&

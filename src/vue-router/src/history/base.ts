@@ -90,6 +90,7 @@ export class History {
     this.confirmTransition(
       route,
       () => {
+        debugger
         this.updateRoute(route)
         onComplete && onComplete(route)
         // @ts-expect-error routerHistory
@@ -166,6 +167,7 @@ export class History {
       return abort(createNavigationDuplicatedError(current, route))
     }
 
+    debugger
     // 三个都是Array<RouteRecord>类型
     const { updated, deactivated, activated } = resolveQueue(
       this.current.matched,
@@ -230,7 +232,6 @@ export class History {
             }
           } else {
             // 进行管道中的下一个钩子
-            // 此处其实传不传to都无所谓，next为runQueue中实现的进行下个钩子
             // confirm transition and pass on the value
             next(to)
           }
@@ -330,12 +331,16 @@ function resolveQueue(current: Array<RouteRecord>, next: Array<RouteRecord>) {
   }
 }
 
+/**
+ * 提取导航守卫
+ */
 function extractGuards(
   records: Array<RouteRecord>,
   name: string,
   bind: Function,
   reverse?: boolean
 ) {
+  // def：records[i].components[key]，instance: records[i].instances[key], match: records[i], key: key of records[i].components
   const guards = flatMapComponents(
     records,
     (def: any, instance: any, match: RouteRecord, key: string) => {
@@ -350,11 +355,15 @@ function extractGuards(
   return flatten(reverse ? guards.reverse() : guards)
 }
 
-function extractGuard(def: Object | Function, key: string) {
+function extractGuard(
+  def: Object | Function,
+  key: string
+): NavigationGuard | undefined | NavigationGuard[] {
   if (typeof def !== 'function') {
     // extend now so that global mixins are applied.
     def = _Vue.extend(def)
   }
+  // beforeRouteEnter, beforeRouteUpdate, beforeRouteLeave
   // @ts-expect-error VueConstructor
   return def.options[key]
 }
@@ -377,6 +386,7 @@ function bindEnterGuard(
   }
 }
 
+// 绑定导航守卫
 function bindGuard(guard: NavigationGuard, instance?: typeof _Vue) {
   if (instance) {
     return function boundRouteGuard() {

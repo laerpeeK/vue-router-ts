@@ -11,7 +11,7 @@ export function flatten(arr: Array<any>) {
 }
 
 /**
- *
+ * 展平并映射路由组件
  */
 export function flatMapComponents(matched: Array<RouteRecord>, fn: Function) {
   return flatten(
@@ -44,6 +44,7 @@ export function resolveAsyncComponents(matched: Array<RouteRecord>) {
         // we are not using Vue's default async resolving mechanism because
         // we want to halt the navigation until the incoming component has been
         // resolved.
+        // 判断当前路由记录的组件定义 def 是否为一个函数且没有 cid 属性（组件 ID），如果满足条件，则认为它是一个需要异步解析的组件。
         if (typeof def === 'function' && def.cid === undefined) {
           hasAsync = true
           pending++

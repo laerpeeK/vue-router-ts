@@ -143,6 +143,7 @@ function isObjectEqual(
 }
 
 export function handleRouteEntered(route: Route) {
+  debugger
   for (let i = 0; i < route.matched.length; i++) {
     const record = route.matched[i]
     for (const name in record.instances) {
